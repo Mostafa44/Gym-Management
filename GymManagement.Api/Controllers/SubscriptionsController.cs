@@ -24,8 +24,12 @@ namespace GymManagement.Api.Controllers
                 request.SubscriptionType.ToString(),
                 request.AdminId
             );
-            var subscriptionId= await _mediator.Send(command);
-            var response = new SubscriptionResponse(subscriptionId, request.SubscriptionType);
+            var createSubscriptionResult= await _mediator.Send(command);
+            if(createSubscriptionResult.IsError)
+            {
+                return Problem();
+            }
+            var response = new SubscriptionResponse(createSubscriptionResult.Value, request.SubscriptionType);
             return Ok(response);
         }
     }
