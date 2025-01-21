@@ -20,7 +20,8 @@ namespace GymManagement.Application.Subscriptions.Commands.CreateSubscriptions
         {
             var subscription= new Subscription()
             {
-                Id= Guid.NewGuid()
+                Id= Guid.NewGuid(),
+                SubscriptionType= request.SubscriptionType
             };
 
            await  _subscriptionRepository.AddSubscriptionAsync(subscription);
