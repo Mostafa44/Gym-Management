@@ -22,5 +22,11 @@ namespace GymManagement.Infrastructure.Subscriptions.Persistence
         {
             return await _dbContext.Subscriptions.FindAsync(subscriptionId);
         }
+
+        public  Task RemoveSubscriptionAsync(Subscription subscription)
+        {
+            _dbContext.Subscriptions.Remove(subscription);
+            return Task.CompletedTask;
+        }
     }
 }

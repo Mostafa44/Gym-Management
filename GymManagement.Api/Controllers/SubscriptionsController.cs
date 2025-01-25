@@ -1,4 +1,5 @@
 ﻿using GymManagement.Application.Subscriptions.Commands.CreateSubscriptions;
+using GymManagement.Application.Subscriptions.Commands.DeleteSubscription;
 using GymManagement.Application.Subscriptions.Queries.GetSubscription;
 using GymManagement.Contracts.Subscriptions;
 using MediatR;
@@ -51,6 +52,17 @@ namespace GymManagement.Api.Controllers
                     Enum.Parse<SubscriptionType>(subscription.SubscriptionType.Name)
                     )),
                 ErrorEventArgs => Problem()
+            );
+        }
+        [HttpDelete("{subscriptionId:guid}")]
+        public async Task<IActionResult> DeleteSubscription(Guid subscriptionId)
+        {
+            var command = new DeleteSubscriptionCommand(subscriptionId);
+
+            var result = await _mediator.Send(command);
+            return result.Match<IActionResult>(
+                _ => NoContent(),
+                _ => Problem()
             );
         }
     }
