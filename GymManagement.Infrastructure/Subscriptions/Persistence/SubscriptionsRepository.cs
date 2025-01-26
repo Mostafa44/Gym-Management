@@ -4,11 +4,11 @@ using GymManagement.Infrastructure.Common.Persistence;
 
 namespace GymManagement.Infrastructure.Subscriptions.Persistence
 {
-    public class SubscriptionRepository : ISubscriptionsRepository
+    public class SubscriptionsRepository : ISubscriptionsRepository
     {
         private readonly GymManagementDbContext _dbContext;
 
-        public SubscriptionRepository(GymManagementDbContext dbContext)
+        public SubscriptionsRepository(GymManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -26,6 +26,12 @@ namespace GymManagement.Infrastructure.Subscriptions.Persistence
         public  Task RemoveSubscriptionAsync(Subscription subscription)
         {
             _dbContext.Subscriptions.Remove(subscription);
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateAsync(Subscription subscription)
+        {
+            _dbContext.Subscriptions.Update(subscription);
             return Task.CompletedTask;
         }
     }

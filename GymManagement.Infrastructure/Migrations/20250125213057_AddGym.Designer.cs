@@ -3,6 +3,7 @@ using System;
 using GymManagement.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(GymManagementDbContext))]
-    partial class GymManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250125213057_AddGym")]
+    partial class AddGym
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
@@ -49,15 +52,6 @@ namespace GymManagement.Infrastructure.Migrations
                     b.Property<Guid>("_adminId")
                         .HasColumnType("TEXT")
                         .HasColumnName("AdminId");
-
-                    b.Property<string>("_gymIds")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("GymIds");
-
-                    b.Property<int>("_maxGyms")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("MaxGyms");
 
                     b.HasKey("Id");
 

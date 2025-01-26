@@ -8,5 +8,6 @@ namespace GymManagement.Application.Common.Interfaces
 
         Task<Subscription?> GetByIdAsync(Guid subscriptionId);
         Task RemoveSubscriptionAsync(Subscription subscription);
+        Task UpdateAsync(Subscription subscription);
     }
 }
