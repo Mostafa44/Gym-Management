@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GymManagement.Api.Controllers
 {
-    [ApiController]
+
     [Route("subscriptions/{subscriptionId:guid}/gyms")]
-    public class GymsController : ControllerBase
+    public class GymsController : ApiController
     {
         private ISender _mediator;
 
@@ -26,10 +26,10 @@ namespace GymManagement.Api.Controllers
 
             return createGymResult.Match(
                 gym => CreatedAtAction(
-                    nameof(GetGym),
-                    new {subscriptionId, GymId= gym.Id},
-                    new GymResponse(gym.Name, gym.Id)),
-                _ => Problem()
+                        nameof(GetGym),
+                        new {subscriptionId, GymId= gym.Id},
+                        new GymResponse(gym.Name, gym.Id)),
+                errors => Problem(errors)
             );
         }
 
@@ -42,7 +42,7 @@ namespace GymManagement.Api.Controllers
 
             return getGymResult.Match(
                 gym => Ok(new GymResponse( gym.Name, gym.Id)),
-                _ => Problem());
+                 Problem);
         }
     }
 }
