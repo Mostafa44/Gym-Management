@@ -1,6 +1,7 @@
 using GymManagement.Application.Common.Interfaces;
 using GymManagement.Domain.Subscriptions;
 using GymManagement.Infrastructure.Common.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymManagement.Infrastructure.Subscriptions.Persistence
 {
@@ -33,6 +34,13 @@ namespace GymManagement.Infrastructure.Subscriptions.Persistence
         {
             _dbContext.Subscriptions.Update(subscription);
             return Task.CompletedTask;
+        }
+
+        public Task<bool> ExistASync(Guid id)
+        {
+            return _dbContext.Subscriptions
+                .AsNoTracking()
+                .AnyAsync(s => s.Id == id);
         }
     }
 }
